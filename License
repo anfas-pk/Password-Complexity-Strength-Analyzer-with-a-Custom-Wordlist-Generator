@@ -1,0 +1,42 @@
+---
+
+### 🧠 `strength_checker.py`
+
+```python
+import math
+import re
+
+class PasswordStrengthChecker:
+    def __init__(self):
+        self.common_words = ['password', 'admin', '123456', 'qwerty']
+
+    def calculate_entropy(self, password):
+        pool = 0
+        if re.search(r'[a-z]', password):
+            pool += 26
+        if re.search(r'[A-Z]', password):
+            pool += 26
+        if re.search(r'[0-9]', password):
+            pool += 10
+        if re.search(r'[^a-zA-Z0-9]', password):
+            pool += 32
+        entropy = len(password) * math.log2(pool) if pool else 0
+        return entropy
+
+    def is_common(self, password):
+        return any(word in password.lower() for word in self.common_words)
+
+    def analyze(self, password):
+        entropy = self.calculate_entropy(password)
+        common = self.is_common(password)
+
+        if common:
+            return "Very Weak", entropy
+        if entropy < 40:
+            return "Weak", entropy
+        elif entropy < 60:
+            return "Moderate", entropy
+        elif entropy < 80:
+            return "Strong", entropy
+        else:
+            return "Very Strong", entropy
