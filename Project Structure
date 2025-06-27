@@ -1,0 +1,15 @@
+password-analyzer/
+│
+├── analyzer/
+│   ├── __init__.py
+│   ├── strength_checker.py
+│   └── wordlist_generator.py
+│
+├── tests/
+│   ├── test_strength_checker.py
+│   └── test_wordlist_generator.py
+│
+├── main.py
+├── requirements.txt
+├── .gitignore
+└── README.md
